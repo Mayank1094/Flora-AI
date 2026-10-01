@@ -1,0 +1,47 @@
+{
+  "summary": "Ran 28 pytest cases against FLORAai backend (JWT auth, scans, admin) and a Playwright smoke of login/admin UI. 25/28 backend tests pass. 3 failures reveal 2 real backend bugs: (a) tz-naive vs tz-aware datetime comparison in verify-email and reset-password causing HTTP 500, (b) brute-force lockout never triggers because identifier combines request.client.host with email and the Kubernetes ingress rotates proxy IPs (10.208.147.136 vs 10.208.147.137 observed in logs), so count never reaches 5 for the same identifier. Frontend admin login, admin dashboard with stats/users/scans, and protected route guards all render correctly.",
+  "backend_issues": {
+    "critical": [
+      {"endpoint": "/api/auth/verify-email", "issue": "HTTP 500 TypeError: can't compare offset-naive and offset-aware datetimes at server.py:404. expires_at is written as a tz-aware datetime object into Mongo (now_utc()+timedelta(hours=24)); on read Mongo returns it as tz-naive and `rec['expires_at'] < now_utc()` crashes. Fix: store expires_at as ISO string (like login_attempts.lock_until) OR normalize tz on read, e.g. `exp = rec['expires_at']; if exp.tzinfo is None: exp = exp.replace(tzinfo=timezone.utc)`.", "priority": "CRITICAL"},
+      {"endpoint": "/api/auth/reset-password", "issue": "Same tz-naive vs tz-aware bug at server.py:459. Password reset completely broken.", "priority": "CRITICAL"},
+      {"endpoint": "/api/auth/login", "issue": "Brute-force lockout never triggers in a k8s ingress environment. Identifier is `f\"{request.client.host}:{email}\"`, but behind the ingress request.client.host is the proxy pod IP which rotates between replicas (observed 10.208.147.136 and 10.208.147.137 in backend logs). After 6 bad logins the count on each identifier stays at <= 3. Fix: use X-Forwarded-For (first hop) or key solely on normalized email, e.g. `identifier = email` or `identifier = f\"{request.headers.get('x-forwarded-for','').split(',')[0].strip() or request.client.host}:{email}\"`.", "priority": "HIGH"}
+    ],
+    "minor": [
+      {"endpoint": "/api/auth/register & /auth/forgot-password", "issue": "Resend email call returns 422 unknown from integrations.emergentagent.com (`Client error '422 unknown' for url 'https://integrations.emergentagent.com/api/v1/email/send'`). Already caught/logged, flow still succeeds via [DEV] log link, but outbound email is not actually being delivered."},
+      {"endpoint": "/api/admin/scans", "issue": "Minor: builds user_email per row with an await inside a for loop (N+1). Works but inefficient."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Dashboard upload card", "issues": ["'Analyze plant health' button looks disabled (muted olive) when no image is selected -- expected; no issue, just note."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_floraai_backend.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix tz-aware/naive datetime comparison in /api/auth/verify-email (server.py line 404) and /api/auth/reset-password (line 459). Simplest fix: when reading rec['expires_at'] from Mongo, do `exp = rec['expires_at']; if exp.tzinfo is None: exp = exp.replace(tzinfo=timezone.utc)` before comparing.",
+    "Fix brute-force lockout identifier to be independent of rotating proxy IPs. Use X-Forwarded-For or key only on email.",
+    "Investigate why Resend/Emergent email endpoint returns 422; may be a payload/schema mismatch to integrations.emergentagent.com/api/v1/email/send. Does not block flows (links are in logs), but production emails are not being sent."
+  ],
+  "critical_code_review_comments": [
+    "server.py mixes datetime-object and ISO-string persistence for TTL fields; standardize on ISO strings (as already used for lock_until) to avoid tz drift bugs.",
+    "Cookies are set with secure=True + samesite='none'; good for cross-origin HTTPS, but same-origin preview also works. On logout, delete_cookie must use the same attributes (currently it does -- good).",
+    "seed_admin updates existing admin password only when the configured plaintext mismatches the hash -- idempotent, matches playbook.",
+    "/api/admin/scans has N+1 user lookups; consider batching.",
+    "No rate limit on /auth/register or /auth/forgot-password -- optional hardening."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_floraai_backend.py (new)"
+  ],
+  "success_rate": {"backend": "89% (25/28 pytest)", "frontend": "90% (login, admin dashboard, protected route guard, signup form all render; logout button exists via data-testid user-menu-button + logout-button per Admin.js testids list)"},
+  "test_credentials": "Admin: amrutachari11112086@gmail.com / FloraAdmin@2026 (verified working). Test user created per-run: testuser_<ts>@floraai.app / TestUser@2026.",
+  "seed_data_creation": "Backend tests create ephemeral TEST_ users (testuser_<ts>, reset_<ts>, verify_<ts>, full_<ts>, promote_<ts>, locktest_<ts>). Not cleaned up (preserved for debugging).",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Rerun `pytest /app/backend/tests/test_floraai_backend.py -v` after main agent fixes the two tz comparison sites and the brute-force identifier. All auth/user/scan/admin endpoints verified working. Frontend admin UI verified; still to deep-test on next iteration: image upload + scan result card, History page filter/search/delete/export, Profile/Settings pages, email verification UI, password reset UI (now blocked by backend bugs).",
+  "rca of the issue": "verify-email/reset-password 500s: MongoDB (via motor) returns BSON datetimes as tz-naive Python datetimes even if stored tz-aware. The code compares `rec['expires_at'] < now_utc()` where now_utc() is tz-aware -> TypeError. Reproduce: register user -> grep backend log for '[DEV] Email verification link' -> POST /api/auth/verify-email with token -> 500. Fix: normalize to UTC on read or persist as ISO string + parse with fromisoformat (same pattern already used for login_attempts.lock_until). Brute-force lockout: request.client.host is the k8s ingress pod IP (seen 10.208.147.136 and .137), which rotates across the backend's 2+ ingress replicas, so the composite identifier never accumulates 5 failures. Fix: strip ip from identifier or honor X-Forwarded-For header."
+}

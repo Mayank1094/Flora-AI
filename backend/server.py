@@ -47,6 +47,22 @@ def now_utc() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def to_aware(dt) -> datetime:
+    """Normalize a value read back from Mongo (tz-naive datetime or ISO string) to tz-aware UTC."""
+    if isinstance(dt, str):
+        dt = datetime.fromisoformat(dt)
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
+
+
+def client_ip(request: Request) -> str:
+    xff = request.headers.get("x-forwarded-for", "")
+    if xff:
+        return xff.split(",")[0].strip()
+    return request.client.host if request.client else "unknown"
+
+
 def get_jwt_secret() -> str:
     return os.environ["JWT_SECRET"]
 
@@ -261,7 +277,7 @@ class RoleUpdate(BaseModel):
 async def check_lockout(identifier: str):
     rec = await db.login_attempts.find_one({"identifier": identifier})
     if rec and rec.get("lock_until"):
-        lock_until = datetime.fromisoformat(rec["lock_until"])
+        lock_until = to_aware(rec["lock_until"])
         if lock_until > now_utc():
             mins = int((lock_until - now_utc()).total_seconds() // 60) + 1
             raise HTTPException(status_code=429,
@@ -332,8 +348,7 @@ async def register(payload: RegisterIn, request: Request, response: Response):
 @api_router.post("/auth/login")
 async def login(payload: LoginIn, request: Request, response: Response):
     email = payload.email.lower().strip()
-    ip = request.client.host if request.client else "unknown"
-    identifier = f"{ip}:{email}"
+    identifier = f"login:{email}"
     await check_lockout(identifier)
     doc = await db.users.find_one({"email": email})
     if not doc or doc.get("status") == "deleted" or not verify_password(payload.password, doc["password_hash"]):
@@ -401,7 +416,7 @@ async def verify_email(payload: VerifyIn):
     rec = await db.email_verification_tokens.find_one({"token": payload.token})
     if not rec or rec.get("used"):
         raise HTTPException(status_code=400, detail="This verification link is invalid or already used.")
-    if rec["expires_at"] < now_utc():
+    if to_aware(rec["expires_at"]) < now_utc():
         raise HTTPException(status_code=400, detail="This verification link has expired.")
     await db.users.update_one({"_id": ObjectId(rec["user_id"])}, {"$set": {"email_verified": True}})
     await db.email_verification_tokens.update_one({"token": payload.token}, {"$set": {"used": True}})
@@ -456,7 +471,7 @@ async def reset_password(payload: ResetIn, request: Request):
     rec = await db.password_reset_tokens.find_one({"token": payload.token})
     if not rec or rec.get("used"):
         raise HTTPException(status_code=400, detail="This reset link is invalid or already used.")
-    if rec["expires_at"] < now_utc():
+    if to_aware(rec["expires_at"]) < now_utc():
         raise HTTPException(status_code=400, detail="This reset link has expired.")
     await db.users.update_one({"_id": ObjectId(rec["user_id"])},
                               {"$set": {"password_hash": hash_password(payload.password),
