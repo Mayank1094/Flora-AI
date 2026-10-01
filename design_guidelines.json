@@ -1,0 +1,124 @@
+{
+  "project_name": "FLORAai - Indian Spice Plant Health & Botanical AI Platform",
+  "theme": "Organic & Earthy Botanical (Indian Subcontinent Spices)",
+  "design_archetype": "ARCHETYPE 1: ORGANIC & EARTHY (Botanical Precision + Warm Spice Palette)",
+  "language_and_tech": {
+    "file_type": "JavaScript (.js / .jsx)",
+    "styling": "Tailwind CSS + Custom CSS Variables + Lucide Icons + Framer Motion + Recharts + Sonner Toasts",
+    "note": "DO NOT use TypeScript (.tsx) syntax or interfaces in code creation. Use React standard JS / JSX."
+  },
+  "typography": {
+    "heading_font": "Playfair Display / Cormorant Garamond (Serif, Organic & Authoritative)",
+    "body_font": "Manrope / Plus Jakarta Sans (Clean, Legible Humanist Sans)",
+    "mono_font": "JetBrains Mono / Source Code Pro (For AI Scan Telemetry, Confidence % & Scientific Botanical Names)",
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight text-emerald-950 dark:text-emerald-50 leading-tight",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-serif font-semibold tracking-tight text-emerald-900 dark:text-emerald-100",
+      "h3": "text-xl sm:text-2xl font-serif font-medium text-emerald-850 dark:text-emerald-200",
+      "h4": "text-lg sm:text-xl font-sans font-semibold text-emerald-900 dark:text-emerald-200",
+      "body": "text-base font-sans text-emerald-900/80 dark:text-emerald-200/80 leading-relaxed",
+      "small_label": "text-xs font-mono uppercase tracking-[0.2em] text-emerald-700/70 dark:text-emerald-400/70"
+    }
+  },
+  "colors": {
+    "palette": {
+      "primary_brand": "#1c3a13",
+      "primary_brand_hover": "#254e1a",
+      "secondary_accent": "#d3fa99",
+      "spice_terracotta": "#b85028",
+      "spice_gold": "#e5a93c",
+      "deep_forest_dark": "#0b190e",
+      "surface_dark": "#122516",
+      "surface_card_dark": "#18301d",
+      "canvas_light": "#fbfcf8",
+      "surface_card_light": "#f3f6ee",
+      "border_light": "rgba(28, 58, 19, 0.12)",
+      "border_dark": "rgba(211, 250, 153, 0.15)"
+    },
+    "rules": {
+      "tinted_grey": "Never use pure #000000 or #ffffff without warm olive/emerald tinting.",
+      "gradient_limit": "Max 15% subtle linear background gradients. Never dark full-screen saturated blue/purple gradients.",
+      "cta_contrast": "Primary buttons use Deep Forest Emerald (#1c3a13) with Lime Pulse (#d3fa99) or Crisp White text, or Gold Terracotta CTA buttons.",
+      "hover_contrast": "Interactive items MUST explicitly define hover text and background colors simultaneously (e.g. hover:bg-emerald-800 hover:text-white)."
+    }
+  },
+  "spacing_and_layout": {
+    "containers": "Containers must have internal padding (p-6, p-8 or p-12) to prevent content edge collisions.",
+    "section_padding": "py-16 sm:py-24 for major marketing / auth hero sections; py-8 for dashboard grids.",
+    "grid_mode": "Bento Grid protocol with direct wrapper children. Use asymmetric spans (e.g. col-span-8 and col-span-4) for marketing/dashboard showcase.",
+    "border_radii": "rounded-2xl for main cards, rounded-xl for inner elements, rounded-full for pills/badges."
+  },
+  "navigation_and_header": {
+    "header_style": "Sticky, backdrop-blur-xl bg-emerald-950/85 dark:bg-emerald-950/90 light:bg-emerald-50/85 text-emerald-950 dark:text-emerald-50 border-b border-emerald-800/20 z-50",
+    "desktop_nav": "Must render visible links: Home, Explore Spices, Scan AI, History, Pricing, About, Login/Sign Up (or Profile avatar dropdown if logged in).",
+    "mobile_nav": "Sheet / Drawer sidebar triggered by hamburger button.",
+    "user_menu": "Avatar with user initials / custom profile photo, dropdown menu containing Profile, Settings, History, Admin (if role === 'admin'), and Sign Out."
+  },
+  "auth_and_pages_guide": {
+    "auth_layout": "Split-screen or glassmorphic centered card with botanical plant background art and live spice plant facts.",
+    "routes": {
+      "/": "Public marketing homepage with botanical hero banner, Indian spice plant diagnostic gallery, live preview scanner demo, test pricing, and call-to-action.",
+      "/login": "Botanical themed login form with email, password, remember me, forgot password link, social login option, and link to sign up.",
+      "/signup": "Botanical themed sign-up with Full Name, Email, Password, Confirm Password, Gardening Experience level (Beginner/Home Garden/Spice Plantation Owner), and primary spice interest selection.",
+      "/forgot-password": "Email recovery request form with instant feedback state and return to login link.",
+      "/reset-password": "Secure new password input form with strength meter and confirmation.",
+      "/verify-email": "OTP / 6-digit code verification or email link confirmation simulation screen with resend timer.",
+      "/dashboard": "Flora Dashboard with plant image capture/upload dropzone, camera toggle, Indian spice selector (Curry Leaf, Cardamom, Turmeric, Black Pepper, Clove, Cinnamon), health score gauge, recent scan quick view, and recommendation panel.",
+      "/history": "Filterable archive of all past plant health diagnostic reports, search by plant name or disease state (Healthy, Blight, Leaf Spot, Root Rot, Deficiency), date picker, and export report option.",
+      "/profile": "User profile manager: Personal info, avatar picker, bio, gardening experience level, saved plant bookmarks, and security tab.",
+      "/settings": "Preferences & notification settings: Scan detail level, AI confidence threshold, dark/light theme toggle, email digest preferences, and API key / privacy settings.",
+      "/admin": "Admin Control Center: System health, total users, total plant scans, regional outbreak map/chart (e.g. Kerala Cardamom Blight alert), user role management (User/Admin promotion), and scan logs table."
+    }
+  },
+  "botanical_spice_plants_focus": [
+    {
+      "name": "Curry Leaf Plant (Murraya koenigii)",
+      "common_issues": ["Citrus Psyllid", "Leaf Spot (Cercospora)", "Iron Chlorosis", "Scale Insects"],
+      "remedies": "Neem oil spray, copper fungicide, balance soil pH to 6.0-7.0."
+    },
+    {
+      "name": "Cardamom (Elettaria cardamomum)",
+      "common_issues": ["Cardamom Mosaic Virus (Katte)", "Rhizome Rot", "Thrips Damage"],
+      "remedies": "Improve shade drainage, destroy affected clumps, apply organic bio-agents (Trichoderma)."
+    },
+    {
+      "name": "Turmeric (Curcuma longa)",
+      "common_issues": ["Leaf Blotch (Taphrina maculans)", "Rhizome Rot (Pythium)", "Shoot Borer"],
+      "remedies": "Crop rotation, seed rhizome treatment with Trichoderma viride, organic potash."
+    },
+    {
+      "name": "Black Pepper (Piper nigrum)",
+      "common_issues": ["Quick Wilt (Phytophthora foot rot)", "Slow Decline", "Pollu Beetle"],
+      "remedies": "Bordeaux mixture 1% application, soil drenching, pruning shaded canopy."
+    },
+    {
+      "name": "Cinnamon (Cinnamomum verum)",
+      "common_issues": ["Pink Disease", "Leaf Blight", "Gall Mite"],
+      "remedies": "Prune infected shoots, organic sulfur spray, maintain organic compost mulching."
+    }
+  ],
+  "image_urls": {
+    "hero_botanical": "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "spices_foliage_dark": "https://images.unsplash.com/photo-1779749778645-01ea66a4030a?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "curry_leaf_plant": "https://images.unsplash.com/photo-1689919450548-d6041ffad25b?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "cardamom_foliage": "https://images.unsplash.com/photo-1732548289716-bddbdfc16a9f?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "turmeric_plant": "https://images.unsplash.com/photo-1750182315615-fc30eb55d0e3?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "dense_leaf_background": "https://images.unsplash.com/photo-1536147210925-5cb7a7a4f9fe?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "botanical_texture": "https://images.unsplash.com/photo-1533038023143-de7a62a9d779?crop=entropy&cs=srgb&fm=jpg&q=85"
+  },
+  "testing_and_accessibility": {
+    "data_testid_rule": "ALL interactive buttons, inputs, links, forms, tabs, dropdowns, and status badges MUST carry a data-testid attribute in kebab-case (e.g. data-testid='login-submit-button', data-testid='plant-upload-input', data-testid='admin-users-table').",
+    "form_accessibility": "Ensure all inputs have explicit labels (<label htmlFor='...'>) and aria-describedby for error states.",
+    "toast_notifications": "Use Sonner component imported from src/components/ui/sonner for interactive feedback (toast.success, toast.error)."
+  },
+  "instructions_to_main_agent": [
+    "Ensure complete responsive design supporting mobile, tablet, and desktop viewports.",
+    "Implement real client-side state / mock API handlers for full authentication lifecycle (Sign Up, Login, Forgot Password, Reset Password, Verify Email, Profile Updates, Settings persist, Scan Upload, Scan History filtering, Admin operations).",
+    "Preserve role-based navigation guard (e.g. standard users see their dashboard/history; admins see administrative user management and aggregate stats).",
+    "In corporate/botanical views, maintain rich visual polish using layered cards, subtle borders, high-contrast accessible typography, and smooth state transitions.",
+    "Always test inputs and buttons with data-testid attributes for reliable end-to-end verification."
+  ]
+},
+  "overwrite": true,
+  "path": "/app/design_guidelines.json"
+}
