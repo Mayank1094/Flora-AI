@@ -124,7 +124,7 @@ export default function Settings() {
                   <Label>Theme preference</Label>
                   <p className="text-xs text-muted-foreground">Saved to your account.</p>
                 </div>
-                <Select value={prefs.theme} onValueChange={(v) => { setPrefs({ ...prefs, theme: v }); setTheme(v); }}>
+                <Select value={prefs.theme} onValueChange={(v) => { setPrefs({ ...prefs, theme: v }); setTheme(v); setUser((u) => (u && typeof u === "object" ? { ...u, preferences: { ...u.preferences, theme: v } } : u)); }}>
                   <SelectTrigger className="w-44" data-testid="theme-select"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="light">Light</SelectItem>

@@ -45,3 +45,13 @@ routes, user-specific scan history, and a plant-image AI diagnosis dashboard.
 
 ## Next tasks
 - Add live camera capture; enrich AI remedy detail per spice; weekly email digest cron.
+
+## Update (2026-10-01) — Feature expansion
+- Added 6 more plant species (Tulsi, Neem, Mango, Aloe Vera, Coconut, Money Plant) → 12 total in `plant_ai.py`, selectors and homepage gallery.
+- Live camera capture on the dashboard (getUserMedia → canvas → base64) with graceful permission fallback.
+- App-wide light/dark botanical theme via next-themes; navbar + mobile toggle; saved to user preferences; `ThemeSync` applies the saved theme once on mount; Settings select previews + persists.
+- Weekly health-digest email via platform cron (`.emergent/crons.yml`, Mon 08:00 IST) → bearer-secured `POST /api/cron/weekly-digest` (ack-fast + BackgroundTasks + idempotency via `cron_runs` TTL).
+- Admin regional outbreak hotspots (`GET /api/admin/outbreaks`) with severity bars.
+- Branding: FLORAai leaf logo applied across navbar/footer/auth; footer now reads "All rights reserved by amrutachari".
+- Project report PDF generated at `/app/frontend/public/FLORAai_Project_Report.pdf` (downloadable at `<frontend>/FLORAai_Project_Report.pdf`).
+- Verified: backend 35/35 tests green; cron 200/401/duplicate; outbreaks + 12 species confirmed; frontend compiles; theme live-preview bug fixed.

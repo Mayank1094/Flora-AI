@@ -20,6 +20,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { UploadCloud, Loader2, ScanLine, X, History, MailWarning, Camera } from "lucide-react";
 import { toast } from "sonner";
@@ -226,6 +227,7 @@ export default function Dashboard() {
               <DialogContent data-testid="camera-dialog">
                 <DialogHeader>
                   <DialogTitle className="font-serif">Capture plant photo</DialogTitle>
+                  <DialogDescription>Point your camera at the affected leaf, then tap Capture.</DialogDescription>
                 </DialogHeader>
                 <div className="overflow-hidden rounded-xl bg-black">
                   <video ref={videoRef} autoPlay playsInline muted className="h-72 w-full object-cover" />

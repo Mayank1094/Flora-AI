@@ -701,7 +701,7 @@ async def cron_weekly_digest(request: Request, background: BackgroundTasks):
     if run_id:
         if await db.cron_runs.find_one({"run_id": run_id}):
             return {"status": "duplicate"}
-        await db.cron_runs.insert_one({"run_id": run_id, "at": now_utc().isoformat()})
+        await db.cron_runs.insert_one({"run_id": run_id, "at": now_utc()})
     background.add_task(send_weekly_digests)
     return {"status": "accepted"}
 
@@ -759,6 +759,7 @@ async def on_startup():
     await db.login_attempts.create_index("identifier", unique=True)
     await db.scans.create_index("user_id")
     await db.scans.create_index("id", unique=True)
+    await db.cron_runs.create_index("at", expireAfterSeconds=604800)
     await seed_admin()
     logger.info("FLORAai backend ready.")
 

@@ -1,0 +1,38 @@
+{
+  "summary": "Iteration-2 testing of FLORAai: 12 plant species, live camera, dark mode, weekly digest cron, admin outbreaks. 35/35 backend tests pass (previous iter1 tz-datetime + brute-force bugs are FIXED). Frontend: 11/12 feature checks pass. One frontend bug: in Settings page the theme-select change does NOT apply the new theme immediately (html.dark is not added until the user clicks Save and reloads). The spec requires immediate preview. Navbar theme-toggle works correctly (light<->dark), persistence works, all 12 plant cards render on homepage, Dashboard spice-select contains all 12 options including the 6 new ones (Tulsi, Neem, Mango, Aloe Vera, Coconut, Money Plant), Dashboard open-camera-button opens camera-dialog with capture/cancel buttons, Admin outbreaks card renders with regional severity data, cron /api/cron/weekly-digest returns 200/accepted with valid bearer, 401 without/wrong token, and 200/duplicate on duplicate X-Webhook-Id.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "Settings theme-select", "issue": "Selecting 'Dark' does not apply dark theme immediately. html.className stays 'light' for >2.5s after selection. Only applies after Save + page reload (when ThemeSync picks up user.preferences.theme). Root cause: ThemeSync useEffect fires whenever AuthContext user reference changes (e.g. from focus-refetch or Settings re-render), overriding the live setTheme('dark') call from onValueChange with the stale user.preferences.theme='light'. Fix: either (a) make ThemeSync only run once on mount (ref-check), or (b) in Settings onValueChange, also update user.preferences.theme optimistically via setUser, or (c) guard ThemeSync so it does not re-fire if next-themes already has a matching/different theme set.", "selector": "[data-testid=\"theme-select\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_iteration2.py",
+    "/app/backend/tests/test_floraai_backend.py",
+    "/app/test_reports/pytest/iter2_results.xml",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix ThemeSync overriding Settings page live theme preview. Suggested: guard ThemeSync so it only applies user.preferences.theme on initial mount (use a ref flag), OR in Settings onValueChange, do setUser({...user, preferences:{...user.preferences, theme:v}}) alongside setTheme(v). Expected behaviour per spec: switching the Settings theme-select immediately applies the theme, and the subsequent Save persists it."
+  ],
+  "critical_code_review_comments": [
+    "/app/backend/server.py admin_outbreaks does an await db.users.find_one in a loop keyed by uid; cached via locmap so OK, but a single $lookup pipeline would be cleaner for larger datasets.",
+    "cron/weekly-digest correctly dedupes via X-Webhook-Id; consider adding a TTL index on cron_runs collection (otherwise it grows forever).",
+    "Settings page uses `user.preferences?.theme || 'light'` which is correct, but ThemeSync component unconditionally reapplies user.preferences.theme on every user reference change, which is the root cause of the live-preview bug.",
+    "Camera dialog has an a11y warning ('Missing Description or aria-describedby for DialogContent') — minor accessibility fix."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_iteration2.py (new)"
+  ],
+  "success_rate": {"backend": "100% (35/35 pytest)", "frontend": "92% (11/12 checks; theme live-preview is the only miss)"},
+  "test_credentials": "Admin: amrutachari11112086@gmail.com / FloraAdmin@2026. WEBHOOK_CRON_SECRET: flora_cron_2b9d4f7a1c6e8035b2d9f4a7c1e68053.",
+  "seed_data_creation": "No new seed data. iter2 tests only POST to cron (fire-and-forget) and GET read-only admin/outbreaks.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend fully green. Only one frontend bug: Settings theme-select does not preview immediately (ThemeSync overrides it). Navbar theme-toggle works. After main agent fixes ThemeSync (apply once on mount using a ref), re-run only the Settings theme live-preview check. Headless camera has no device so camera-capture-button cannot actually capture; verified presence + cancel path only, as spec allows."
+}
