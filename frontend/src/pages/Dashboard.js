@@ -15,14 +15,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { UploadCloud, Loader2, ScanLine, X, History, MailWarning } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { UploadCloud, Loader2, ScanLine, X, History, MailWarning, Camera } from "lucide-react";
 import { toast } from "sonner";
 
-const SPICE_OPTIONS = ["Curry Leaf", "Cardamom", "Turmeric", "Black Pepper", "Clove", "Cinnamon", "Other / Unsure"];
+const SPICE_OPTIONS = ["Curry Leaf", "Cardamom", "Turmeric", "Black Pepper", "Clove", "Cinnamon", "Tulsi", "Neem", "Mango", "Aloe Vera", "Coconut", "Money Plant", "Other / Unsure"];
 
 export default function Dashboard() {
   const { user } = useAuth();
   const fileRef = useRef(null);
+  const videoRef = useRef(null);
+  const streamRef = useRef(null);
+  const [cameraOpen, setCameraOpen] = useState(false);
   const [image, setImage] = useState(null);
   const [plant, setPlant] = useState("");
   const [scanning, setScanning] = useState(false);
@@ -81,6 +90,40 @@ export default function Dashboard() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
+  const openCamera = async () => {
+    setError("");
+    setCameraOpen(true);
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+      streamRef.current = stream;
+      if (videoRef.current) videoRef.current.srcObject = stream;
+    } catch (e) {
+      setCameraOpen(false);
+      setError("Could not access the camera. Please allow permission or upload a photo instead.");
+    }
+  };
+
+  const stopCamera = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
+    }
+    setCameraOpen(false);
+  };
+
+  const capturePhoto = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+    setImage(canvas.toDataURL("image/jpeg", 0.9));
+    setResult(null);
+    setError("");
+    stopCamera();
+  };
+
   return (
     <Shell>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -119,6 +162,7 @@ export default function Dashboard() {
                   data-testid="plant-upload-input"
                 />
                 {!image ? (
+                  <div className="space-y-3">
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
@@ -129,8 +173,12 @@ export default function Dashboard() {
                       <UploadCloud className="h-8 w-8" />
                     </span>
                     <span className="font-serif text-lg font-semibold text-foreground">Upload a plant photo</span>
-                    <span className="text-sm text-muted-foreground">Click to browse or use your camera · JPEG, PNG, WEBP</span>
+                    <span className="text-sm text-muted-foreground">Click to browse · JPEG, PNG, WEBP</span>
                   </button>
+                  <Button type="button" variant="outline" onClick={openCamera} className="w-full rounded-full" data-testid="open-camera-button">
+                    <Camera className="mr-2 h-4 w-4" /> Use live camera
+                  </Button>
+                  </div>
                 ) : (
                   <div className="relative overflow-hidden rounded-2xl">
                     <img src={image} alt="Selected plant" className="max-h-80 w-full object-cover" data-testid="preview-image" />
@@ -173,6 +221,29 @@ export default function Dashboard() {
             </Card>
 
             {result && <ScanResult scan={result} />}
+
+            <Dialog open={cameraOpen} onOpenChange={(o) => !o && stopCamera()}>
+              <DialogContent data-testid="camera-dialog">
+                <DialogHeader>
+                  <DialogTitle className="font-serif">Capture plant photo</DialogTitle>
+                </DialogHeader>
+                <div className="overflow-hidden rounded-xl bg-black">
+                  <video ref={videoRef} autoPlay playsInline muted className="h-72 w-full object-cover" />
+                </div>
+                <div className="flex gap-3">
+                  <Button variant="outline" className="flex-1" onClick={stopCamera} data-testid="camera-cancel-button">
+                    Cancel
+                  </Button>
+                  <Button
+                    className="flex-1 bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]"
+                    onClick={capturePhoto}
+                    data-testid="camera-capture-button"
+                  >
+                    <Camera className="mr-2 h-4 w-4" /> Capture
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           {/* Recent */}

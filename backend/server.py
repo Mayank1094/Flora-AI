@@ -1,6 +1,7 @@
 import os
 import re
 import uuid
+import hmac
 import secrets
 import logging
 from pathlib import Path
@@ -16,12 +17,12 @@ import bcrypt
 import jwt
 from bson import ObjectId
 from bson.errors import InvalidId
-from fastapi import FastAPI, APIRouter, Request, Response, Depends, HTTPException, status
+from fastapi import FastAPI, APIRouter, Request, Response, Depends, HTTPException, status, BackgroundTasks
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
-from emailer import send_email, verification_email, reset_email
+from emailer import send_email, verification_email, reset_email, digest_email
 from plant_ai import analyze_plant, SPICE_KNOWLEDGE
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -639,6 +640,70 @@ async def admin_scans(admin: dict = Depends(require_admin)):
         u = await db.users.find_one({"_id": ObjectId(s["user_id"])}) if ObjectId.is_valid(s["user_id"]) else None
         s["user_email"] = u.get("email") if u else "unknown"
     return {"scans": scans}
+
+
+@api_router.get("/admin/outbreaks")
+async def admin_outbreaks(admin: dict = Depends(require_admin)):
+    scans = await db.scans.find({}, {"image_base64": 0}).to_list(3000)
+    locmap = {}
+    regions = {}
+    for s in scans:
+        uid = s.get("user_id", "")
+        if uid not in locmap:
+            u = await db.users.find_one({"_id": ObjectId(uid)}) if ObjectId.is_valid(uid) else None
+            locmap[uid] = (u.get("location") if u else None) or "Unspecified region"
+        region = locmap[uid]
+        r = regions.setdefault(region, {"region": region, "total": 0, "unhealthy": 0, "statuses": {}})
+        r["total"] += 1
+        if s.get("status") not in ("Healthy", None):
+            r["unhealthy"] += 1
+            st = s.get("status", "Unknown")
+            r["statuses"][st] = r["statuses"].get(st, 0) + 1
+    out = []
+    for r in regions.values():
+        top = max(r["statuses"].items(), key=lambda x: x[1])[0] if r["statuses"] else None
+        severity = round((r["unhealthy"] / r["total"]) * 100) if r["total"] else 0
+        out.append({"region": r["region"], "total": r["total"], "unhealthy": r["unhealthy"],
+                    "top_status": top, "severity": severity})
+    out.sort(key=lambda x: (x["unhealthy"], x["severity"]), reverse=True)
+    return {"outbreaks": out}
+
+
+async def send_weekly_digests():
+    cutoff_iso = (now_utc() - timedelta(days=7)).isoformat()
+    users = await db.users.find({"status": {"$ne": "deleted"}, "email_verified": True,
+                                 "preferences.email_digest": True}).to_list(2000)
+    for u in users:
+        scans = await db.scans.find(
+            {"user_id": str(u["_id"]), "created_at": {"$gte": cutoff_iso}}, {"image_base64": 0}
+        ).to_list(500)
+        if not scans:
+            continue
+        total = len(scans)
+        avg = round(sum(int(s.get("health_score", 0)) for s in scans) / total)
+        unhealthy = [s for s in scans if s.get("status") != "Healthy"]
+        try:
+            subj, html = digest_email(u.get("name", "Grower"), total, avg, unhealthy[:5])
+            await send_email(to=u["email"], subject=subj, html=html)
+        except Exception as e:  # noqa: BLE001
+            logger.error(f"Weekly digest failed for {u.get('email')}: {e}")
+
+
+@api_router.post("/cron/weekly-digest")
+async def cron_weekly_digest(request: Request, background: BackgroundTasks):
+    # Cron endpoints must ack 2xx immediately; enqueue/background the actual work.
+    secret = os.environ.get("WEBHOOK_CRON_SECRET", "")
+    auth = request.headers.get("Authorization", "")
+    token = auth[7:] if auth.startswith("Bearer ") else ""
+    if not secret or not token or not hmac.compare_digest(token, secret):
+        raise HTTPException(status_code=401, detail="Unauthorized")
+    run_id = request.headers.get("X-Webhook-Id")
+    if run_id:
+        if await db.cron_runs.find_one({"run_id": run_id}):
+            return {"status": "duplicate"}
+        await db.cron_runs.insert_one({"run_id": run_id, "at": now_utc().isoformat()})
+    background.add_task(send_weekly_digests)
+    return {"status": "accepted"}
 
 
 @api_router.get("/")

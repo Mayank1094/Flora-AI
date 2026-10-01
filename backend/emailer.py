@@ -140,6 +140,40 @@ def verification_email(name: str, link: str) -> tuple[str, str]:
     return "Verify your FLORAai email address", _shell(inner)
 
 
+def digest_email(name: str, total: int, avg: int, unhealthy: list) -> tuple[str, str]:
+    if unhealthy:
+        items = "".join(
+            f'<li style="margin:6px 0;color:#2c3e2a">'
+            f'<strong>{escape(str(s.get("plant_name") or "Plant"))}</strong> — '
+            f'{escape(str(s.get("status") or "Unknown"))} '
+            f'({int(s.get("health_score") or 0)}/100)</li>'
+            for s in unhealthy
+        )
+        attention = (
+            '<p style="color:#2c3e2a;font-size:15px;line-height:1.6;margin-top:20px">'
+            'Plants that may need your attention:</p>'
+            f'<ul style="padding-left:20px;margin:8px 0">{items}</ul>'
+        )
+    else:
+        attention = (
+            '<p style="color:#2c3e2a;font-size:15px;line-height:1.6;margin-top:20px">'
+            'Great news — every plant you scanned this week looked healthy. 🌿</p>'
+        )
+    inner = (
+        f'<h1 style="color:#1c3a13;font-size:22px;margin:0 0 16px">Your weekly plant report, {escape(name)}</h1>'
+        f'<p style="color:#2c3e2a;font-size:15px;line-height:1.6">You ran '
+        f'<strong>{total}</strong> scan(s) this week with an average health score of '
+        f'<strong>{avg}/100</strong>.</p>'
+        f'{attention}'
+        '<p style="margin:28px 0"><a href="https://flora-login-1.preview.emergentagent.com/dashboard" '
+        'style="background:#1c3a13;color:#d3fa99;text-decoration:none;padding:14px 28px;border-radius:999px;'
+        'font-weight:bold;font-size:15px;display:inline-block">Open my dashboard</a></p>'
+        '<p style="color:#6b7c63;font-size:13px;line-height:1.6">You receive this because weekly digests are '
+        'on in your settings. You can turn them off anytime under Settings → Notifications.</p>'
+    )
+    return "Your weekly FLORAai plant-health digest", _shell(inner)
+
+
 def reset_email(name: str, link: str) -> tuple[str, str]:
     inner = (
         f'<h1 style="color:#1c3a13;font-size:22px;margin:0 0 16px">Reset your FLORAai password</h1>'

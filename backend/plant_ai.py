@@ -40,6 +40,36 @@ SPICE_KNOWLEDGE = [
         "common_issues": ["Leaf Blight", "Sudden Death", "Seedling Wilt"],
         "remedies": "Improve drainage, Bordeaux spray, shade regulation for seedlings.",
     },
+    {
+        "name": "Tulsi / Holy Basil (Ocimum sanctum)",
+        "common_issues": ["Fusarium Wilt", "Powdery Mildew", "Leaf Roller", "Aphids"],
+        "remedies": "Avoid overwatering, neem oil spray, remove affected shoots, ensure full sun.",
+    },
+    {
+        "name": "Neem (Azadirachta indica)",
+        "common_issues": ["Dieback", "Leaf Spot", "Scale Insects", "Root Rot"],
+        "remedies": "Prune dead branches, improve soil drainage, horticultural oil for scale.",
+    },
+    {
+        "name": "Mango (Mangifera indica)",
+        "common_issues": ["Anthracnose", "Powdery Mildew", "Mango Hopper", "Malformation"],
+        "remedies": "Copper fungicide at flowering, prune dense canopy, control hoppers early.",
+    },
+    {
+        "name": "Aloe Vera (Aloe barbadensis)",
+        "common_issues": ["Root Rot", "Aloe Rust", "Mealybugs", "Sunburn / Overwatering"],
+        "remedies": "Use well-draining soil, water sparingly, wipe mealybugs, part shade in peak heat.",
+    },
+    {
+        "name": "Coconut (Cocos nucifera)",
+        "common_issues": ["Bud Rot", "Root Wilt", "Rhinoceros Beetle", "Leaf Spot"],
+        "remedies": "Remove rotten spindle, Bordeaux paste on crown, trap beetles, balanced potash.",
+    },
+    {
+        "name": "Money Plant / Pothos (Epipremnum aureum)",
+        "common_issues": ["Root Rot", "Leaf Yellowing (Overwatering)", "Bacterial Leaf Spot", "Mealybugs"],
+        "remedies": "Let soil dry between watering, trim rotten roots, isolate spotted leaves, indirect light.",
+    },
 ]
 
 VALID_STATUSES = ["Healthy", "Leaf Spot", "Blight", "Root Rot", "Deficiency", "Pest Infestation", "Viral", "Unknown"]
@@ -72,7 +102,8 @@ async def analyze_plant(image_base64: str, plant_name: str) -> dict:
 
         system = (
             "You are FLORAai, an expert botanical plant-pathologist specialising in Indian subcontinent "
-            "spice plants (curry leaf, cardamom, turmeric, black pepper, clove, cinnamon, ginger, chilli). "
+            "spice, medicinal and household plants (curry leaf, cardamom, turmeric, black pepper, clove, "
+            "cinnamon, ginger, chilli, tulsi/holy basil, neem, mango, aloe vera, coconut, money plant/pothos). "
             "Analyse the plant photo and respond with STRICT JSON only, no markdown, with keys: "
             "plant_name (string), scientific_name (string), status (one of "
             f"{VALID_STATUSES}), health_score (0-100 integer), confidence (0-100 integer), "

@@ -2,6 +2,7 @@ import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/context/AuthContext";
 import { ProtectedRoute, AdminRoute } from "@/components/ProtectedRoute";
+import { ThemeSync } from "@/components/ThemeSync";
 import { Toaster } from "@/components/ui/sonner";
 
 import Home from "@/pages/Home";
@@ -21,6 +22,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <AuthProvider>
+          <ThemeSync />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

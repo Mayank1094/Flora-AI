@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Shell, PageHeader } from "@/components/Shell";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "next-themes";
 import api, { apiError } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -31,6 +32,7 @@ import { toast } from "sonner";
 
 export default function Settings() {
   const { user, setUser, logout } = useAuth();
+  const { setTheme } = useTheme();
   const navigate = useNavigate();
   const [prefs, setPrefs] = useState({
     scan_detail: user.preferences?.scan_detail || "standard",
@@ -122,7 +124,7 @@ export default function Settings() {
                   <Label>Theme preference</Label>
                   <p className="text-xs text-muted-foreground">Saved to your account.</p>
                 </div>
-                <Select value={prefs.theme} onValueChange={(v) => setPrefs({ ...prefs, theme: v })}>
+                <Select value={prefs.theme} onValueChange={(v) => { setPrefs({ ...prefs, theme: v }); setTheme(v); }}>
                   <SelectTrigger className="w-44" data-testid="theme-select"><SelectValue /></SelectTrigger>
                   <SelectContent>
                     <SelectItem value="light">Light</SelectItem>

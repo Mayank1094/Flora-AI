@@ -19,7 +19,7 @@ import {
 import { Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 
 const EXPERIENCE = ["Beginner", "Home Garden", "Spice Plantation Owner"];
-const SPICES = ["Curry Leaf", "Cardamom", "Turmeric", "Black Pepper", "Clove", "Cinnamon"];
+const SPICES = ["Curry Leaf", "Cardamom", "Turmeric", "Black Pepper", "Clove", "Cinnamon", "Tulsi", "Neem", "Mango", "Aloe Vera", "Coconut", "Money Plant"];
 
 export default function Signup() {
   const { register } = useAuth();

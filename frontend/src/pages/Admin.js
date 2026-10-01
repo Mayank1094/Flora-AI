@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Users, ScanLine, ShieldCheck, BadgeCheck, Loader2 } from "lucide-react";
+import { Users, ScanLine, ShieldCheck, BadgeCheck, Loader2, MapPin } from "lucide-react";
 import {
   BarChart,
   Bar,
@@ -40,18 +40,21 @@ export default function Admin() {
   const [stats, setStats] = useState(null);
   const [users, setUsers] = useState([]);
   const [scans, setScans] = useState([]);
+  const [outbreaks, setOutbreaks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const load = async () => {
     try {
-      const [s, u, sc] = await Promise.all([
+      const [s, u, sc, ob] = await Promise.all([
         api.get("/admin/stats"),
         api.get("/admin/users"),
         api.get("/admin/scans"),
+        api.get("/admin/outbreaks"),
       ]);
       setStats(s.data);
       setUsers(u.data.users);
       setScans(sc.data.scans);
+      setOutbreaks(ob.data.outbreaks);
     } catch (e) {
       toast.error(apiError(e));
     } finally {
@@ -135,6 +138,48 @@ export default function Admin() {
             </CardContent>
           </Card>
         )}
+
+        <Card className="mt-6 border-primary/15" data-testid="admin-outbreaks">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-serif text-lg">
+              <MapPin className="h-5 w-5 text-[hsl(14_63%_44%)]" /> Regional outbreak hotspots
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {outbreaks.length === 0 ? (
+              <p className="text-sm text-muted-foreground">No regional scan data yet.</p>
+            ) : (
+              <div className="space-y-4">
+                {outbreaks.map((o) => (
+                  <div key={o.region} data-testid={`outbreak-${o.region}`}>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="flex items-center gap-1.5 font-medium text-foreground">
+                        <MapPin className="h-3.5 w-3.5 text-muted-foreground" /> {o.region}
+                      </span>
+                      <span className="font-mono text-xs text-muted-foreground">
+                        {o.unhealthy}/{o.total} affected{o.top_status ? ` · ${o.top_status}` : ""}
+                      </span>
+                    </div>
+                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-muted">
+                      <div
+                        className="h-full rounded-full transition-all"
+                        style={{
+                          width: `${o.severity}%`,
+                          background:
+                            o.severity >= 66
+                              ? "hsl(14 63% 44%)"
+                              : o.severity >= 33
+                              ? "hsl(38 78% 50%)"
+                              : "hsl(103 51% 30%)",
+                        }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
 
         <Tabs defaultValue="users" className="mt-8">
           <TabsList data-testid="admin-tabs">

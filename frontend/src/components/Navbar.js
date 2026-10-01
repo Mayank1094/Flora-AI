@@ -12,7 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Leaf, Menu, LayoutDashboard, History, User, Settings, Shield, LogOut } from "lucide-react";
+import { Menu, LayoutDashboard, History, User, Settings, Shield, LogOut, Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
 import { toast } from "sonner";
 
 export function initials(name = "") {
@@ -33,6 +34,22 @@ const publicLinks = [
   { to: "/#how", label: "How It Works" },
 ];
 
+export function ThemeToggle({ className = "" }) {
+  const { theme, setTheme } = useTheme();
+  const dark = theme === "dark";
+  return (
+    <button
+      type="button"
+      onClick={() => setTheme(dark ? "light" : "dark")}
+      aria-label="Toggle dark mode"
+      data-testid="theme-toggle"
+      className={`flex h-9 w-9 items-center justify-center rounded-full border border-primary/15 text-foreground/70 transition-colors hover:bg-secondary ${className}`}
+    >
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
 export function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -51,9 +68,7 @@ export function Navbar() {
     <header className="sticky top-0 z-50 border-b border-primary/10 bg-background/85 backdrop-blur-xl">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-2" data-testid="nav-logo">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary">
-            <Leaf className="h-5 w-5 text-accent" />
-          </span>
+          <img src="/logo.png" alt="FLORAai logo" className="h-9 w-9 object-contain" />
           <span className="font-serif text-xl font-bold tracking-tight text-primary dark:text-accent">
             FLORA<span className="text-[hsl(14_63%_44%)]">ai</span>
           </span>
@@ -82,6 +97,7 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
+          <ThemeToggle />
           {!authed ? (
             <>
               <Button
@@ -186,6 +202,14 @@ export function Navbar() {
                     {l.label}
                   </a>
                 ))}
+                <div className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium">
+                  <span>Appearance</span>
+                  <ThemeToggle />
+                </div>
+                <div className="flex items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium">
+                  <span>Appearance</span>
+                  <ThemeToggle />
+                </div>
                 {authed ? (
                   <>
                     <MobileItem to="/dashboard" setOpen={setOpen} navigate={navigate} icon={LayoutDashboard} label="Dashboard" />
@@ -258,8 +282,8 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent">
-              <Leaf className="h-5 w-5 text-primary" />
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white">
+              <img src="/logo.png" alt="FLORAai logo" className="h-7 w-7 object-contain" />
             </span>
             <span className="font-serif text-xl font-bold text-accent">
               FLORA<span className="text-[hsl(38_78%_66%)]">ai</span>
@@ -271,7 +295,7 @@ export function Footer() {
           </p>
         </div>
         <div className="mt-8 border-t border-accent/10 pt-6 text-xs text-accent/50">
-          © {new Date().getFullYear()} FLORAai. Built for growers, by growers.
+          © {new Date().getFullYear()} FLORAai. All rights reserved by amrutachari.
         </div>
       </div>
     </footer>

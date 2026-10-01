@@ -30,6 +30,18 @@ const SPICE_IMAGES = {
     "https://images.unsplash.com/photo-1533038023143-de7a62a9d779?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
   "Clove (Syzygium aromaticum)":
     "https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Tulsi / Holy Basil (Ocimum sanctum)":
+    "https://images.unsplash.com/photo-1665479754958-1a8bdc47cc0d?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Neem (Azadirachta indica)":
+    "https://images.unsplash.com/photo-1653585759494-c5582e011cfc?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Mango (Mangifera indica)":
+    "https://images.unsplash.com/photo-1759162339512-c2e0f23d4dff?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Aloe Vera (Aloe barbadensis)":
+    "https://images.unsplash.com/photo-1650311325008-1721388946bc?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Coconut (Cocos nucifera)":
+    "https://images.unsplash.com/photo-1665220524723-613acbca9771?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
+  "Money Plant / Pothos (Epipremnum aureum)":
+    "https://images.unsplash.com/photo-1780314501309-883578fb9231?crop=entropy&cs=srgb&fm=jpg&q=85&w=600",
 };
 
 export default function Home() {
