@@ -83,7 +83,7 @@ export default function Admin() {
     : [];
 
   const barColor = (name) =>
-    name === "Healthy" ? "hsl(103 51% 25%)" : name === "Unknown" ? "hsl(110 15% 55%)" : "hsl(14 63% 44%)";
+    name === "Healthy" ? "hsl(var(--accent))" : name === "Unknown" ? "hsl(var(--muted-foreground))" : "hsl(var(--destructive))";
 
   if (loading) {
     return (
@@ -170,7 +170,7 @@ export default function Admin() {
                               ? "hsl(14 63% 44%)"
                               : o.severity >= 33
                               ? "hsl(38 78% 50%)"
-                              : "hsl(103 51% 30%)",
+                              : "hsl(var(--accent))",
                         }}
                       />
                     </div>

@@ -1,0 +1,369 @@
+[
+  {
+    "slug": "aloe_vera",
+    "label": "Aloe Vera",
+    "source_title": "File:A potted aloe vera plant.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AA_potted_aloe_vera_plant.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Lionsleeps23\" class=\"mw-redirect\" title=\"User:Lionsleeps23\">Lionsleeps23</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/aloe_vera.jpg"
+  },
+  {
+    "slug": "areca",
+    "label": "Areca",
+    "source_title": "File:Areca catechu (dwarf).jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AAreca_catechu_%28dwarf%29.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:KATHERINE_WAGNER-REISS\" title=\"User:KATHERINE WAGNER-REISS\">KATHERINE WAGNER-REISS</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/areca.jpg"
+  },
+  {
+    "slug": "bamboo",
+    "label": "Bamboo",
+    "source_title": "File:Bambusa emeiensis - Mounts Botanical Garden - Palm Beach County, Florida - DSC03855.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Bambusa_emeiensis_-_Mounts_Botanical_Garden_-_Palm_Beach_County,_Florida_-_DSC03855.jpg",
+    "author": "Daderot",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "file": "/private/tmp/floraai-wikimedia-assets/bamboo.jpg",
+    "size": [
+      480,
+      720
+    ]
+  },
+  {
+    "slug": "banana",
+    "label": "Banana",
+    "source_title": "File:BANANA TREE.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3ABANANA_TREE.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:I.KEZIA&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:I.KEZIA (page does not exist)\">I.KEZIA</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/banana.jpg"
+  },
+  {
+    "slug": "black_pepper",
+    "label": "Black Pepper",
+    "source_title": "File:Black Pepper - Piper nigrum - Le Jardin du Roi - 01.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Black_Pepper_-_Piper_nigrum_-_Le_Jardin_du_Roi_-_01.jpg",
+    "author": "NorbertNagel",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/black_pepper.jpg",
+    "size": [
+      593,
+      720
+    ]
+  },
+  {
+    "slug": "bougainvillea",
+    "label": "Bougainvillea",
+    "source_title": "File:Starr 030418-0058 Bougainvillea spectabilis.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Starr_030418-0058_Bougainvillea_spectabilis.jpg",
+    "author": "Forest &amp; Kim Starr",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/bougainvillea.jpg",
+    "size": [
+      720,
+      540
+    ]
+  },
+  {
+    "slug": "cardamom",
+    "label": "Cardamom",
+    "source_title": "File:Elettaria cardamomum flowers 3.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Elettaria_cardamomum_flowers_3.jpg",
+    "author": "B.navez",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/cardamom.jpg",
+    "size": [
+      482,
+      720
+    ]
+  },
+  {
+    "slug": "champa",
+    "label": "Champa",
+    "source_title": "File:Plumeria rubra Greenhouse N17 of Saint Petersburg Botanical Garden.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3APlumeria_rubra_Greenhouse_N17_of_Saint_Petersburg_Botanical_Garden.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Afanasovich\" title=\"User:Afanasovich\">Afanasovich</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/champa.jpg"
+  },
+  {
+    "slug": "cinnamon",
+    "label": "Cinnamon",
+    "source_title": "File:Cinnamomum verum1.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cinnamomum_verum1.jpg",
+    "author": "Unknown contributor",
+    "license": "Public domain",
+    "license_url": "",
+    "file": "/private/tmp/floraai-wikimedia-assets/cinnamon.jpg",
+    "size": [
+      500,
+      323
+    ]
+  },
+  {
+    "slug": "clove",
+    "label": "Clove",
+    "source_title": "File:Syzygium aromaticum on tree.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Syzygium_aromaticum_on_tree.jpg",
+    "author": "tinofrey",
+    "license": "Public domain",
+    "license_url": "",
+    "file": "/private/tmp/floraai-wikimedia-assets/clove.jpg",
+    "size": [
+      720,
+      480
+    ]
+  },
+  {
+    "slug": "coconut",
+    "label": "Coconut Palm",
+    "source_title": "File:Cocos nucifera8.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cocos_nucifera8.jpg",
+    "author": "Kurt Stüber [1]",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "file": "/private/tmp/floraai-wikimedia-assets/coconut.jpg",
+    "size": [
+      640,
+      480
+    ]
+  },
+  {
+    "slug": "curry_leaf",
+    "label": "Curry Leaf",
+    "source_title": "File:'Narasingha Paat' or Curry leaves, Scientific Name- Murraya koenigii.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:%27Narasingha_Paat%27_or_Curry_leaves,_Scientific_Name-_Murraya_koenigii.jpg",
+    "author": "AditiB08",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/curry_leaf.jpg",
+    "size": [
+      639,
+      720
+    ]
+  },
+  {
+    "slug": "giloy",
+    "label": "Giloy",
+    "source_title": "File:Tinospora cordifolia (giloy) (1) 04.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Tinospora_cordifolia_(giloy)_(1)_04.jpg",
+    "author": "Gurnavinder Sidhu",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/giloy.jpg",
+    "size": [
+      405,
+      720
+    ]
+  },
+  {
+    "slug": "ginger",
+    "label": "Ginger",
+    "source_title": "File:Zingiber officinale 230935597.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Zingiber_officinale_230935597.jpg",
+    "author": "ritirene",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/ginger.jpg",
+    "size": [
+      720,
+      540
+    ]
+  },
+  {
+    "slug": "guava",
+    "label": "Guava",
+    "source_title": "File:Psidium guajava (Common Guava) - Branch with Developing Fruits and Foliage.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3APsidium_guajava_%28Common_Guava%29_-_Branch_with_Developing_Fruits_and_Foliage.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Sadekla_Wise_Nutifafa\" class=\"mw-redirect\" title=\"User:Sadekla Wise Nutifafa\">Sadekla Wise Nutifafa</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/guava.jpg"
+  },
+  {
+    "slug": "hibiscus",
+    "label": "Hibiscus",
+    "source_title": "File:Hibiscus rosa-sinensis,Nativeplants Botanical Garden.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Hibiscus_rosa-sinensis,Nativeplants_Botanical_Garden.jpg",
+    "author": "Nativeplants garden",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/private/tmp/floraai-wikimedia-assets/hibiscus.jpg",
+    "size": [
+      720,
+      540
+    ]
+  },
+  {
+    "slug": "jackfruit",
+    "label": "Jackfruit",
+    "source_title": "File:Artocarpus heterophyllus fruits at tree.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Artocarpus_heterophyllus_fruits_at_tree.jpg",
+    "author": "Photo taken by User:Ahoerstemeier on June 28, 2003 in Chaiya, Surat Thani Province, Thailand.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "file": "/private/tmp/floraai-wikimedia-assets/jackfruit.jpg",
+    "size": [
+      387,
+      600
+    ]
+  },
+  {
+    "slug": "tulsi",
+    "label": "Tulsi",
+    "source_title": "File:Ocimum tenuiflorum2.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Ocimum_tenuiflorum2.jpg",
+    "author": "en:User:GourangaUK",
+    "license": "Public domain",
+    "license_url": "",
+    "file": "/private/tmp/floraai-wikimedia-assets/tulsi.jpg",
+    "size": [
+      540,
+      644
+    ]
+  },
+  {
+    "slug": "turmeric",
+    "label": "Turmeric",
+    "source_title": "File:Starr-140925-1977-Curcuma longa-flowering habit-Pali o Waipio Huelo-Maui (25128294462).jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Starr-140925-1977-Curcuma_longa-flowering_habit-Pali_o_Waipio_Huelo-Maui_(25128294462).jpg",
+    "author": "Forest and Kim Starr",
+    "license": "CC BY 3.0 us",
+    "license_url": "https://creativecommons.org/licenses/by/3.0/us/deed.en",
+    "file": "/private/tmp/floraai-wikimedia-assets/turmeric.jpg",
+    "size": [
+      540,
+      720
+    ]
+  },
+  {
+    "slug": "rose",
+    "label": "Rose",
+    "source_title": "File:Rosa indica - 20120721.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3ARosa_indica_-_20120721.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:JDP90\" class=\"mw-redirect\" title=\"User:JDP90\">JDP90 (Joydeep)</a>.",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/rose.jpg"
+  },
+  {
+    "slug": "mango",
+    "label": "Mango",
+    "source_title": "File:Mangifera indica. Tropical Brazil.JPG",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AMangifera_indica._Tropical_Brazil.JPG",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Chris.urs-o\" title=\"User:Chris.urs-o\">Chris.urs-o</a> - Maria Marinho",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/mango.jpg"
+  },
+  {
+    "slug": "jasmine",
+    "label": "Jasmine",
+    "source_title": "File:JasminumSambac.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AJasminumSambac.jpg",
+    "author": "Taken by <a href=\"//commons.wikimedia.org/wiki/User:Fanghong\" title=\"User:Fanghong\"> Fanghong</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+    "file": "/plants/jasmine.jpg"
+  },
+  {
+    "slug": "lotus",
+    "label": "Lotus",
+    "source_title": "File:Indian Lotus (Nelumbo nucifera) flower.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AIndian_Lotus_%28Nelumbo_nucifera%29_flower.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Dr._Chinchu_C.\" title=\"User:Dr. Chinchu C.\">Dr. Chinchu C.</a>",
+    "license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0",
+    "file": "/plants/lotus.jpg"
+  },
+  {
+    "slug": "lemon",
+    "label": "Lemon",
+    "source_title": "File:Citronnier-2025.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3ACitronnier-2025.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Cheikh_cherif&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Cheikh cherif (page does not exist)\">Cheikh cherif</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/lemon.jpg"
+  },
+  {
+    "slug": "money_plant",
+    "label": "Money Plant",
+    "source_title": "File:Money Plant (Epipremnum aureum) 4.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AMoney_Plant_%28Epipremnum_aureum%29_4.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Mokkie&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Mokkie (page does not exist)\">Mokkie</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/money_plant.jpg"
+  },
+  {
+    "slug": "papaya",
+    "label": "Papaya",
+    "source_title": "File:Carica papaya young leaf.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3ACarica_papaya_young_leaf.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:JDP90\" class=\"mw-redirect\" title=\"User:JDP90\">JDP90 (Joydeep)</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/papaya.jpg"
+  },
+  {
+    "slug": "marigold",
+    "label": "Marigold",
+    "source_title": "File:Intercropping coconut n Tagetes erecta.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AIntercropping_coconut_n_Tagetes_erecta.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Ezhuttukari\" title=\"User:Ezhuttukari\">Ezhuttukari</a>",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/marigold.jpg"
+  },
+  {
+    "slug": "pomegranate",
+    "label": "Pomegranate",
+    "source_title": "File:Close-up of Pomegranate Tree Branch.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AClose-up_of_Pomegranate_Tree_Branch.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Nesaj210&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Nesaj210 (page does not exist)\">Nesaj210</a>",
+    "license": "CC0",
+    "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "file": "/plants/pomegranate.jpg"
+  },
+  {
+    "slug": "neem",
+    "label": "Neem",
+    "source_title": "File:Azadirachta indica plant(Neem).jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3AAzadirachta_indica_plant%28Neem%29.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Prathvi_Acharya\" title=\"User:Prathvi Acharya\">Prathvi Acharya</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/neem.jpg"
+  },
+  {
+    "slug": "palmyra",
+    "label": "Palmyra",
+    "source_title": "File:(Borassus flabellifer) palmyra palm tree as shelter belts.jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File%3A%28Borassus_flabellifer%29_palmyra_palm_tree_as_shelter_belts.jpg",
+    "author": "<a href=\"//commons.wikimedia.org/wiki/User:Adityamadhav83\" title=\"User:Adityamadhav83\">Adityamadhav83</a>",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "file": "/plants/palmyra.jpg"
+  },
+  {
+    "slug": "lipstick_palm",
+    "label": "Lipstick Palm",
+    "source_title": "File:Cyrtostachys renda .jpg",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Cyrtostachys_renda_.jpg",
+    "author": "prashanthns",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "file": "/plants/lipstick_palm.jpg",
+    "source_note": "Photographed at College of Forestry, Kerala Agricultural University, Thrissur, India."
+  }
+]

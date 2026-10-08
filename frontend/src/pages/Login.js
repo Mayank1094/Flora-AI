@@ -110,7 +110,7 @@ export default function Login() {
         <Button
           type="submit"
           disabled={loading}
-          className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]"
+          className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90"
           data-testid="login-submit-button"
         >
           {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}

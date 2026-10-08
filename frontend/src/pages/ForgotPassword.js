@@ -67,7 +67,7 @@ export default function ForgotPassword() {
             <Label htmlFor="email">Email address</Label>
             <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" data-testid="forgot-email-input" />
           </div>
-          <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="forgot-submit-button">
+          <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="forgot-submit-button">
             {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
             {loading ? "Sending…" : "Send reset link"}
           </Button>

@@ -135,7 +135,7 @@ export default function Profile() {
                     <Label htmlFor="bio">Bio</Label>
                     <Textarea id="bio" value={form.bio} onChange={set("bio")} placeholder="Tell us about your garden…" rows={3} data-testid="profile-bio-input" />
                   </div>
-                  <Button type="submit" disabled={saving} className="rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="profile-save-button">
+                  <Button type="submit" disabled={saving} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="profile-save-button">
                     {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     Save changes
                   </Button>
@@ -161,7 +161,7 @@ export default function Profile() {
                     <PasswordInput id="new" value={pw.new_password} onChange={(e) => setPw({ ...pw, new_password: e.target.value })} autoComplete="new-password" testid="new-password-input" />
                     <PasswordStrength password={pw.new_password} />
                   </div>
-                  <Button type="submit" disabled={pwSaving} className="rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="change-password-button">
+                  <Button type="submit" disabled={pwSaving} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="change-password-button">
                     {pwSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                     Update password
                   </Button>

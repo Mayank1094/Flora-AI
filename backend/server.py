@@ -38,6 +38,8 @@ REFRESH_DAYS = 7
 MAX_FAILED = 5
 LOCKOUT_MINUTES = 15
 FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+COOKIE_SECURE = os.environ.get("COOKIE_SECURE", "false").lower() in ("true", "1")
+COOKIE_SAMESITE = os.environ.get("COOKIE_SAMESITE", "lax")
 
 app = FastAPI(title="FLORAai API")
 api_router = APIRouter(prefix="/api")
@@ -115,15 +117,15 @@ def create_refresh_token(user_id: str, jti: str) -> str:
 
 
 def set_auth_cookies(response: Response, access: str, refresh: str):
-    response.set_cookie("access_token", access, httponly=True, secure=True, samesite="none",
+    response.set_cookie("access_token", access, httponly=True, secure=COOKIE_SECURE, samesite=COOKIE_SAMESITE,
                         max_age=ACCESS_MINUTES * 60, path="/")
-    response.set_cookie("refresh_token", refresh, httponly=True, secure=True, samesite="none",
+    response.set_cookie("refresh_token", refresh, httponly=True, secure=COOKIE_SECURE, samesite=COOKIE_SAMESITE,
                         max_age=REFRESH_DAYS * 86400, path="/")
 
 
 def clear_auth_cookies(response: Response):
-    response.delete_cookie("access_token", path="/", samesite="none", secure=True)
-    response.delete_cookie("refresh_token", path="/", samesite="none", secure=True)
+    response.delete_cookie("access_token", path="/", samesite=COOKIE_SAMESITE, secure=COOKIE_SECURE)
+    response.delete_cookie("refresh_token", path="/", samesite=COOKIE_SAMESITE, secure=COOKIE_SECURE)
 
 
 def public_user(doc: dict) -> dict:
@@ -388,7 +390,7 @@ async def refresh_token(request: Request, response: Response):
     if not doc or doc.get("status") == "deleted":
         raise HTTPException(status_code=401, detail="Account not found.")
     access = create_access_token(str(doc["_id"]), doc["email"], doc.get("role", "user"))
-    response.set_cookie("access_token", access, httponly=True, secure=True, samesite="none",
+    response.set_cookie("access_token", access, httponly=True, secure=COOKIE_SECURE, samesite=COOKIE_SAMESITE,
                         max_age=ACCESS_MINUTES * 60, path="/")
     return {"message": "Token refreshed."}
 
@@ -550,6 +552,11 @@ async def create_scan(payload: ScanIn, user: dict = Depends(get_current_user)):
         "id": scan_id, "user_id": str(user["_id"]),
         "plant_name": result.get("plant_name") or payload.plant_name,
         "scientific_name": result.get("scientific_name", ""),
+        "plant_family": result.get("plant_family", ""),
+        "plant_role": result.get("plant_role", ""),
+        "plant_description": result.get("plant_description", ""),
+        "problem_cause": result.get("problem_cause", ""),
+        "precautions": result.get("precautions", []),
         "status": result.get("status", "Unknown"),
         "health_score": result.get("health_score", 0),
         "confidence": result.get("confidence", 0),

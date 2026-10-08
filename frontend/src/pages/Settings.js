@@ -146,7 +146,7 @@ export default function Settings() {
             </CardContent>
           </Card>
 
-          <Button onClick={save} disabled={saving} className="rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="settings-save-button">
+          <Button onClick={save} disabled={saving} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="settings-save-button">
             {saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
             Save settings
           </Button>

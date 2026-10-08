@@ -61,7 +61,7 @@ export default function VerifyEmail() {
               Your email is verified. Every FLORAai feature is now unlocked. 🌿
             </AlertDescription>
           </Alert>
-          <Button onClick={() => navigate(user ? "/dashboard" : "/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="verify-continue-button">
+          <Button onClick={() => navigate(user ? "/dashboard" : "/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="verify-continue-button">
             {user ? "Go to dashboard" : "Log in"}
           </Button>
         </div>
@@ -103,7 +103,7 @@ export default function VerifyEmail() {
               Resend verification email
             </Button>
           )}
-          <Button onClick={() => navigate(user ? "/dashboard" : "/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="verify-skip-button">
+          <Button onClick={() => navigate(user ? "/dashboard" : "/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="verify-skip-button">
             {user ? "Continue to dashboard" : "Back to login"}
           </Button>
         </div>

@@ -60,7 +60,7 @@ export default function ResetPassword() {
               Your password has been reset. You can now log in with your new password.
             </AlertDescription>
           </Alert>
-          <Button onClick={() => navigate("/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="reset-goto-login">
+          <Button onClick={() => navigate("/login")} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="reset-goto-login">
             Log in now
           </Button>
         </div>
@@ -81,7 +81,7 @@ export default function ResetPassword() {
             <Label htmlFor="confirm">Confirm new password</Label>
             <PasswordInput id="confirm" value={confirm} onChange={(e) => setConfirm(e.target.value)} placeholder="Re-enter new password" autoComplete="new-password" testid="reset-confirm-input" />
           </div>
-          <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-[hsl(103_51%_20%)]" data-testid="reset-submit-button">
+          <Button type="submit" disabled={loading} className="w-full rounded-full bg-primary text-primary-foreground hover:bg-primary/90" data-testid="reset-submit-button">
             {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
             {loading ? "Updating…" : "Reset password"}
           </Button>
